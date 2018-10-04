@@ -1,0 +1,109 @@
+Levels and Layers of Abstraction in a Linux System:---
+
+A Linux system has three main levels:
+1)The hardware is at the base.
+Hardware includes the memory as well as one or more central process-
+ing units (CPUs)
+
+2)The next level up is the kernel, which is the core of the operating sys-
+tem. The kernel is software residing in memory that tells the CPU what to
+do. The kernel manages the hardware and acts primarily as an interface
+between the hardware and any running program.
+
+3)Processes—the running programs that the kernel manages—collectively
+make up the system’s upper level, called user space.
+
+difference between the ways that the kernel and user
+processes run :--
+
+1)The kernel runs in kernel mode, and the user processes run in
+user mode. 
+
+2)Code running in kernel mode has unrestricted access to the pro-
+cessor and main memory.
+This is a powerful but dangerous privilege that allows a kernel process to easily crash the entire system. The area that only
+the kernel can access is called kernel space.
+
+3)User mode, in comparison, restricts access to a (usually quite small)
+subset of memory and safe CPU operations. User space refers to the parts of
+main memory that the user processes can access.
+
+Main Memory----
+
+It is storage area which stores evrything in bit (0s and 1s). In this area running kernel and user processes resides.
+
+
+Kernel:------
+
+One of the kernel’s tasks is to split memory into many subdivisions, and it must maintain certain state
+information about those subdivisions at all times.
+
+The kernel is in charge of managing tasks in four general system areas:--
+
+1)Processes  The kernel is responsible for determining which processes
+are allowed to use the CPU.
+
+2)Memory  The kernel needs to keep track of all memory—what is cur-
+rently allocated to a particular process, what might be shared between
+processes, and what is free.
+
+3)Device drivers  The kernel acts as an interface between hardware
+(such as a disk) and processes. It’s usually the kernel’s job to operate
+the hardware.
+
+4)System calls and support  Processes normally use system calls to com-
+municate with the kernel.
+
+1.1 Process management:
+----The kernel is responsible for context switching.(The act
+of one process giving up control of the CPU to another process is called a
+context switch)
+
+1.2 Memory management:
+----Modern CPUs include a memory
+management unit (MMU) that enables a memory access scheme called virtual
+memory.
+
+1.3 Device Drivers and Management:
+----A device is operable under kernel mode because improper use can crash the system. And difference Devices mostly have difference programming interface so they use difference network cards.
+
+1.4 System Calls and Support:
+---- The user process can access the kernel thorough system calls (for specific tasks like reading a file).
+A process starts as a result of fork() and exec()
+
+fork()  -- When a process calls fork() , the kernel creates a nearly identical
+copy of the process.
+
+exec() --  When a process calls exec(program) , the kernel starts program ,
+replacing the current process.   
+
+----Other than init , all user processes on a Linux system
+start as a result of fork() , and most of the time, you also run exec() to start
+a new program instead of running a copy of an existing process.
+
+----Pseudo­ devices look like devices to user processes, but they’re implemented purely
+in software... a user process that accesses a pseudodevice still has to use a system call to
+open the device, so processes can’t entirely avoid system calls.
+
+USER SPACE :
+user processes run in user space. There are 3 layers in user processes :1)bottom level(handles uncomplicated tasks, n/w config) 2)middle level(has larger components
+such as mail, print, and database services.) 3) top level(handles complicated tasks like web)
+
+USERS:
+A user in Linux is an enity that can run processes and own files. Kernel identifies a user with userid.
+
+The root user is an exception to the preceding rules because root may terminate and alter another user’s processes and read any
+file on the local system. For this reason, root is known as the superuser. A person who can operate as root is said to have root access and is an adminis-
+trator on a traditional Unix system.
+
+Operating as root can be dangerous. It can be difficult to identify and correct mistakes
+because the system will let you do anything, even if what you’re doing is harmful to
+the system.
+
+-------------
+The Bourne Shell: /bin/sh
+--A shell is a program that runs commands, like the ones that users enter
+
+--There are many different Unix shells, but all derive several of their
+features from the Bourne shell (/bin/sh), a standard shell developed at Bell
+Labs for early versions of Unix.

@@ -1,0 +1,43 @@
+The Bourne Shell: /bin/sh
+--A shell is a program that runs commands, like the ones that users enter
+
+--There are many different Unix shells, but all derive several of their
+features from the Bourne shell (/bin/sh), a standard shell developed at Bell
+Labs for early versions of Unix.
+
+Basic commands in Linux:
+
+1) Cat -
+cmd:- $ cat file1 file2
+When you run this command, cat prints the contents of file1 , file2 ,
+and any other files that you specify (denoted by ... ), and then exits. The
+command is called cat because it performs concatenation when it prints
+the contents of more than one file.
+
+2) Standard Input and Standard Output - 
+Unix processes use I/O streams to read and write data.
+Streams are very flexible.
+For example, the source of an input stream can be a file, a device, a termi-
+nal, or even the output stream from another process.
+
+ankita@ICPL12901:~$ cat 
+Hi
+Hi
+Ankita
+Ankita
+Chavan
+Chavan
+
+The cat command repeats any line that you type.
+press ctrl -D on an empty line to terminate cat and return to the shell
+prompt.
+The reason cat adopted an interactive behavior has to do with streams.
+Because you did not specify an input filename, cat read from the standard
+input stream provided by the Linux kernel rather than a stream connected
+to a file. In this case, the standard input was connected to the terminal in
+which you ran cat .
+
+Pressing ctrl -D
+on an empty line stops the current standard input entry from the
+terminal (and often terminates a program). Don’t confuse this with ctrl -C, which
+terminates a program regardless of its input or output.
