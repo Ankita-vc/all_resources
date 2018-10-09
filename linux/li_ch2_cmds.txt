@@ -41,3 +41,174 @@ Pressing ctrl -D
 on an empty line stops the current standard input entry from the
 terminal (and often terminates a program). Don’t confuse this with ctrl -C, which
 terminates a program regardless of its input or output.
+
+Standard output is similar. The kernel gives each process a standard
+output stream where it can write its output. The cat command always writes
+its output to the standard output. When you ran cat in the terminal, the
+standard output was connected to that terminal, so that’s where you saw the
+output.
+
+Basic Commands------------------
+
+1) ls
+Use ls -l for a detailed (long) listing and ls -F to display file
+type information.
+
+2) cp
+In its simplest form, cp copies files. For example, to copy file1 to file2 ,
+enter this:
+$ cp file1 file2
+To copy a number of files to a directory (folder) named dir , try this instead:
+$ cp file1 ... fileN dir
+
+4) mv
+The mv (move) command is like cp . In its simplest form, it renames a file. For
+example, to rename file1 to file2 , enter this:
+$ mv file1 file2
+You can also use mv to move a number of files to a different directory:
+$ mv file1 ... fileN dir
+
+5) touch
+The touch command creates a file. If the file already exists, touch does not
+change it, but it does update the file’s modification time stamp printed with
+the ls -l command. For example, to create an empty file, enter this:
+$ touch file
+
+6) rm
+rm
+To delete (remove) a file, use rm . After you remove a file, it’s gone from your
+system and generally cannot be undeleted.
+$ rm file
+
+7) echo 
+The echo command prints its arguments to the standard output:
+$ echo Hello again.
+Hello again.
+The echo command is very useful for finding expansions of shell globs
+(“wildcards” such as * ) and variables (such as $HOME )
+
+Intermediate Commands------------------
+
+
+
+
+
+
+
+------------------------
+DOT FILES:--------------
+
+After running ls -a cmd you can see dot files(configuration files).
+one DOT means current dir and DOT DOT means parent directory. 
+
+Variables:---------
+
+The main difference between environment and shell variables is that the operat-
+ing system passes all of your shell’s environment variables to programs that
+the shell runs, whereas shell variables cannot be accessed in the commands
+that you run.
+
+Assign an environment variable with the shell’s export command. For
+example, if you’d like to make the $STUFF shell variable into an environment
+variable, use the following:
+$ STUFF=blah
+$ export STUFF
+
+
+The Command Path:-----
+
+PATH is a special environment variable that contains the command path (or path for short). A command path is a list of system directories that the shell searches when trying to locate a command.
+To add directories to this path for command search use
+$ PATH=dir:$PATH
+Or you can append a directory name to the end of the PATH variable,
+causing the shell to look in dir last:
+$ PATH=$PATH:dir
+
+
+Shell Input and Output:---------
+
+To send the output of command to a file instead of the terminal, use the >
+redirection character:
+
+$ command > file
+The shell creates file if it does not already exist. If file exists, the shell
+
+$ command >> file
+This is a handy way to collect output in one place when executing
+sequences of related commands.
+
+To send the standard output of a command to the standard input of
+another command, use the pipe character ( | ). To see how this works, try
+these two commands:
+$ head /proc/cpuinfo
+$ head /proc/cpuinfo | tr a-z A-Z
+
+Standard Input Redirection:-------
+
+To channel a file to a program’s standard input, use the < operator:
+$ head < /proc/cpuinfo
+
+
+Listing and Manipulating Processes:----------
+
+a process is a running program. Each process on
+the system has a numeric process ID (PID). For a quick listing of running pro-
+cesses, just run ps on the command line. You should get a list like this one:
+$ ps
+ PID TTY          TIME CMD
+ 1853 pts/12   00:00:00 ps
+15760 pts/12   00:00:00 bash
+
+
+The fields are as follows:
+PID  The process ID.
+TTY  The terminal device where the process is running. More about
+this later.
+STAT  The process status, that is, what the process is doing and where
+its memory resides. For example, S means sleeping and R means run-
+ning. (See the ps(1) manual page for a description of all the symbols.)
+TIME  The amount of CPU time in minutes and seconds that the pro-
+cess has used so far. In other words, the total amount of time that the
+process has spent running instructions on the processor.
+COMMAND  This one might seem obvious, but be aware that a pro-
+cess can change this field from its original value.
+
+
+ps x   Show all of your running processes.
+ps ax   Show all processes on the system, not just the ones you own.
+ps u   Include more detailed information on processes.
+ps w   Show full command names, not just what fits on one line.
+
+use ps u $$ , because $$ is a shell variable that evaluates to the current shell’s
+PID.
+
+Killing Processes:---------------------------
+
+To kill a process we have to pass signals to processes.
+$ kill pid
+There are many types of signals. The default is TERM , or terminate. You
+can send different signals by adding an extra option to kill .
+
+For example, to
+freeze a process instead of terminating it, use the STOP signal:
+$ kill -STOP pid
+stopped process is still in memory, ready to pick up where it left off.
+Use the CONT signal to continue running the process again:
+$ kill -CONT pid
+
+Background Processes:--------------------------
+
+you can detach a process from the shell and put it in the “background” with
+the ampersand ( & ); this gives you the prompt back.
+
+$ gunzip file.gz &
+
+The dark side of running background processes is that they may expect
+to work with the standard input (or worse, read directly from the terminal).
+If a program tries to read something from the standard input when it’s in
+the background, it can freeze (try fg to bring it back) or terminate. Also,
+if the program writes to the standard output or standard error, the output
+can appear in the terminal window with no regard for anything else run-
+ning there, meaning that you can get unexpected output when you’re work-
+ing on something else.
+We can solve this problem by writing output of the background processes on some file. so that we can see its status
